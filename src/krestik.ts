@@ -142,21 +142,17 @@ class Krestik {
     // console.log(moves, currentPlayer);
     let bestMove = 0;
     if (currentPlayer === this.botPlayer) {
-      let bestScore = -100;
       let depth = 1000;
       moves.forEach((val, i) => {
         if (val.score >= 0 && val.depth <= depth) {
-          bestScore = val.score;
           depth = val.depth;
           bestMove = i;
         }
       });
     } else {
-      let bestScore = 100;
       let depth = 1000;
       moves.forEach((val, i) => {
         if (val.score <= 0 && val.depth <= depth) {
-          bestScore = val.score;
           depth = val.depth;
           bestMove = i;
         }
