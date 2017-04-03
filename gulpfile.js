@@ -4,9 +4,9 @@ const less = require('gulp-less');
 const ts = require('gulp-typescript');
 
 gulp.task('less', () => {
-  return gulp.src('./*.less')
+  return gulp.src('./src/*.less')
     .pipe(less())
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('ts', () => {
