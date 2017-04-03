@@ -1,3 +1,4 @@
+// Говнокод написанный на скорую руку в целях демонстрации работы алгоритмы минимакс.!!!!
 
 function drawAction(index, player) {
   const template = {
@@ -17,12 +18,15 @@ function drawAction(index, player) {
   document.querySelector(`[data-cell="${index}"]`).innerHTML = template[player];
 }
 
-function clearTable(cells: NodeListOf<Element>, game: Krestik, start: Element) {
+function clearTable(cells: NodeListOf<Element>, game: Krestik, start: Element, status) {
   if (game) {
     game.clear();
   }
   if (start) {
     start.removeAttribute('disabled');
+  }
+  if (status) {
+    status.state = true;
   }
   for (let cell of cells) {
     cell.innerHTML = '';
@@ -46,13 +50,13 @@ function init() {
     const pl = e.target.dataset.player;
     if (pl && input.checked) {
       player = pl;
-      clearTable(cells, krestik, start);
+      clearTable(cells, krestik, start, status);
     }
   });
 
   start.addEventListener('click', (e) => {
     pending = true;
-    clearTable(cells, krestik, start);
+    clearTable(cells, krestik, start, status);
 
     if (player) {
       krestik = new Krestik(player);
