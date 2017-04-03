@@ -19,7 +19,8 @@ class Krestik {
 
   constructor(public humanPlayer: string) {
     this.botPlayer = humanPlayer === 'x' ? 'o' : 'x';
-    // this.table = ['x', 'o', 'x', 3, 'o', 5, 'x', 7, 8];
+    // this.table = ['x', 'o', 2, 3, 4, 5, 6, 7, 'x'];
+    // this.table = ['x', 'o', 2, 3, 'o', 5, 6, 'x', 'x'];
     this.table = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   }
 
@@ -59,6 +60,7 @@ class Krestik {
 
   public botAction(): IStatus {
     const cell = this.minimax(this.table, this.botPlayer);
+    // console.log(cell);
     this.table[cell.index] = this.botPlayer;
 
     const emptyCells = this.getEmptyIndex(this.table).length;
@@ -137,12 +139,13 @@ class Krestik {
       moves.push(move);
     });
 
-    let bestMove;
+    // console.log(moves, currentPlayer);
+    let bestMove = 0;
     if (currentPlayer === this.botPlayer) {
       let bestScore = -100;
       let depth = 1000;
       moves.forEach((val, i) => {
-        if (val.score >= bestScore && val.depth < depth) {
+        if (val.score >= 0 && val.depth <= depth) {
           bestScore = val.score;
           depth = val.depth;
           bestMove = i;
@@ -152,7 +155,7 @@ class Krestik {
       let bestScore = 100;
       let depth = 1000;
       moves.forEach((val, i) => {
-        if (val.score <= bestScore && val.depth < depth) {
+        if (val.score <= 0 && val.depth <= depth) {
           bestScore = val.score;
           depth = val.depth;
           bestMove = i;
@@ -164,3 +167,6 @@ class Krestik {
   }
 }
 
+// const x = new Krestik('x');
+// console.log(x.start());
+// console.log(x.botAction());
