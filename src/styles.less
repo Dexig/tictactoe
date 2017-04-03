@@ -1,0 +1,157 @@
+@import (less) './node_modules/normalize.css/normalize.css';
+
+@indent:                                       20px;
+@main-width:                                  600px;
+@border:                           1px solid #eee;
+@shadow:           0 0 10px 1px rgba(0, 0, 0, .2);
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: @main-width;
+}
+
+.krestik {
+  &-table {
+    border: @border;
+    box-shadow: @shadow;
+
+    &-row {
+      display: flex;
+      flex-flow: row nowrap;
+
+      &:not(:last-child) {
+        border-bottom: @border;
+      }
+    }
+
+    &-cell {
+      cursor: pointer;
+      overflow: hidden;
+      padding: @indent;
+      flex: 1 1 33%;
+      height: 150px;
+
+      .ico {
+        fill: none;
+        stroke: black;
+        stroke-width: 16px;
+        transition-duration: 0.125s;
+        transition: stroke-dashoffset 0.225s cubic-bezier(0.4,0,0.2,1);
+
+        &-x > path {
+          animation-name: x-animate;
+          animation-duration: 2s;
+          animation-fill-mode: both;
+          stroke: rgb(84, 84, 84);
+          stroke-dasharray: 200;
+          stroke-dashoffset: 200;
+          transform: translate3d();
+        }
+
+        &-o > path {
+          animation-name: o-animate;
+          animation-duration: 2s;
+          animation-fill-mode: both;
+          stroke: rgb(242, 235, 211);
+          stroke-dasharray: 305;
+          stroke-dashoffset: 305;
+          transform: translate3d();
+        }
+      }
+
+      &:not(:last-child) {
+        border-right: @border;
+      }
+    }
+  }
+
+  &-control {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    margin-top: @indent;
+
+    &-who {
+      label {
+        line-height: 1;
+        display: inline-block;
+      }
+
+      input {
+        display: none;
+
+        &:checked + .x {
+          color: #fff;
+          background-color: #14BDAC;
+        }
+
+        &:checked + .o {
+          color: #fff;
+          background-color: #14BDAC;
+        }
+      }
+    }
+
+    .x {
+      color: #14BDAC;
+      background-color: #F8F8F8;
+      margin-right: @indent;
+    }
+
+    .o {
+      color: #14BDAC;
+      background-color: #F8F8F8;
+    }
+
+    .start {
+      color: #14BDAC;
+      background-color: #F8F8F8;
+
+      &:disabled {
+        color: #F8F8F8;
+        background-color: #14BDAC;
+      }
+    }
+
+    label,
+    button {
+      outline: 0;
+      border: 0;
+      background-color: red;
+
+      padding: @indent;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: @shadow;
+      transition: all ease .2s;
+    }
+  }
+}
+
+
+@keyframes x-animate {
+  from {
+    stroke-dashoffset: 200;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes o-animate {
+  from {
+    stroke-dashoffset: 305;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}

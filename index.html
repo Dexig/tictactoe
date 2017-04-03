@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="dist/styles.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1 data-header>Tic Tac Toe</h1>
+    </div>
+    <div class="krestik">
+      <div data-table class="krestik-table">
+        <div class="krestik-table-row">
+          <div data-cell="0" class="krestik-table-cell"></div>
+          <div data-cell="1" class="krestik-table-cell"></div>
+          <div data-cell="2" class="krestik-table-cell"></div>
+        </div>
+        <div class="krestik-table-row">
+          <div data-cell="3" class="krestik-table-cell"></div>
+          <div data-cell="4" class="krestik-table-cell"></div>
+          <div data-cell="5" class="krestik-table-cell"></div>
+        </div>
+        <div class="krestik-table-row">
+          <div data-cell="6" class="krestik-table-cell"></div>
+          <div data-cell="7" class="krestik-table-cell"></div>
+          <div data-cell="8" class="krestik-table-cell"></div>
+        </div>
+      </div>
+      <div class="krestik-control">
+        <div data-control="player" class="krestik-control-who">
+          <input id="player-x" type="radio" data-player="x" name="player">
+          <label for="player-x" class="x">X</label>
+          <input id="player-o" type="radio" data-player="o" name="player">
+          <label for="player-o" class="o">O</label>
+        </div>
+        <button data-control="start" class="start">START</button>
+      </div>
+    </div>
+  </div>
+  <script src="dist/krestik.js"></script>
+  <script src="dist/script.js"></script>
+</body>
+</html>
