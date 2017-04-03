@@ -91,14 +91,11 @@ function init() {
       } else if (status.player !== player && status.state) {
         header.innerHTML += ' - ПОРАЖЕНИЕ!'
         start.removeAttribute('disabled');
-        drawAction(status.lastMove, botPlayer);
       } else if (status.draw) {
         header.innerHTML += ' - НИЧЬЯ!'
         start.removeAttribute('disabled');
-        drawAction(status.lastMove, botPlayer);
-      } else {
-        drawAction(status.lastMove, botPlayer);
       }
+      drawAction(status.lastMove, status.player);
     }
     pending = false;
   });

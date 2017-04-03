@@ -60,7 +60,6 @@ class Krestik {
 
   public botAction(): IStatus {
     const cell = this.minimax(this.table, this.botPlayer);
-    // console.log(cell);
     this.table[cell.index] = this.botPlayer;
 
     const emptyCells = this.getEmptyIndex(this.table).length;
@@ -70,6 +69,7 @@ class Krestik {
     if (cell.index !== undefined && emptyCells) {
       this.status.lastMove = cell.index;
     } else {
+      this.status.player = this.humanPlayer;
       this.status.draw = true;
     }
     this.status.state = this.checkTable(this.table, this.botPlayer);
