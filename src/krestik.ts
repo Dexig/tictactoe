@@ -1,6 +1,7 @@
 interface IMove {
   index?: number;
   score?: number;
+  depth?: number;
 }
 
 interface IStatus {
@@ -18,6 +19,7 @@ class Krestik {
 
   constructor(public humanPlayer: string) {
     this.botPlayer = humanPlayer === 'x' ? 'o' : 'x';
+    // this.table = ['x', 'o', 'x', 3, 'o', 5, 'x', 7, 8];
     this.table = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   }
 
@@ -55,7 +57,7 @@ class Krestik {
     return this.botAction();
   }
 
-  private botAction(): IStatus {
+  public botAction(): IStatus {
     const cell = this.minimax(this.table, this.botPlayer);
     this.table[cell.index] = this.botPlayer;
 
@@ -95,15 +97,16 @@ class Krestik {
   }
 
 
-  private minimax(newTable: string[] | number[], currentPlayer: string): IMove {
+  private minimax(newTable: string[] | number[], currentPlayer: string, depth: number = 0): IMove {
     const availableCell = this.getEmptyIndex(newTable);
+    depth += 1;
 
     if (this.checkTable(newTable, this.humanPlayer)) {
-      return { score: -10 };
+      return { score: -10, depth };
     } else if (this.checkTable(newTable, this.botPlayer)) {
-      return { score: 10 };
+      return { score: 10, depth };
     } else if (!availableCell.length) {
-      return { score: 0 };
+      return { score: 0, depth };
     }
 
     if (this.table.length === availableCell.length) {
@@ -120,9 +123,13 @@ class Krestik {
       newTable[cell] = currentPlayer;
 
       if (currentPlayer === this.botPlayer) {
-        move.score = this.minimax(newTable, this.humanPlayer).score;
+        let minimaxMove = this.minimax(newTable, this.humanPlayer, depth);
+        move.score = minimaxMove.score;
+        move.depth = minimaxMove.depth;
       } else {
-        move.score = this.minimax(newTable, this.botPlayer).score;
+        let minimaxMove = this.minimax(newTable, this.botPlayer, depth);
+        move.score = minimaxMove.score;
+        move.depth = minimaxMove.depth;
       }
 
       newTable[cell] = move.index;
@@ -132,18 +139,22 @@ class Krestik {
 
     let bestMove;
     if (currentPlayer === this.botPlayer) {
-      let bestScore = -10000;
+      let bestScore = -100;
+      let depth = 1000;
       moves.forEach((val, i) => {
-        if (val.score > bestScore) {
+        if (val.score >= bestScore && val.depth < depth) {
           bestScore = val.score;
+          depth = val.depth;
           bestMove = i;
         }
       });
     } else {
-      let bestScore = 10000;
+      let bestScore = 100;
+      let depth = 1000;
       moves.forEach((val, i) => {
-        if (val.score < bestScore) {
+        if (val.score <= bestScore && val.depth < depth) {
           bestScore = val.score;
+          depth = val.depth;
           bestMove = i;
         }
       });
