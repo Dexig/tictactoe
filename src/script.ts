@@ -18,7 +18,7 @@ function drawAction(index, player) {
   document.querySelector(`[data-cell="${index}"]`).innerHTML = template[player];
 }
 
-function clearTable(cells: NodeListOf<Element>, game: Krestik, start: Element, status) {
+function clearTable(cells: any, game: Krestik, start: Element, status) {
   if (game) {
     game.clear();
   }

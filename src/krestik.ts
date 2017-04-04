@@ -1,7 +1,6 @@
 interface IMove {
   index?: number;
   score?: number;
-  depth?: number;
 }
 
 interface IStatus {
@@ -105,11 +104,11 @@ class Krestik {
     depth += 1;
 
     if (this.checkTable(newTable, this.humanPlayer)) {
-      return { score: -10, depth };
+      return { score: depth - 10 };
     } else if (this.checkTable(newTable, this.botPlayer)) {
-      return { score: 10, depth };
+      return { score: 10 - depth };
     } else if (!availableCell.length) {
-      return { score: 0, depth };
+      return { score: 0 };
     }
 
     if (this.table.length === availableCell.length) {
@@ -126,13 +125,10 @@ class Krestik {
       newTable[cell] = currentPlayer;
 
       if (currentPlayer === this.botPlayer) {
-        let minimaxMove = this.minimax(newTable, this.humanPlayer, depth);
-        move.score = minimaxMove.score;
-        move.depth = minimaxMove.depth;
+        let minimaxMove =
+        move.score = this.minimax(newTable, this.humanPlayer, depth).score;
       } else {
-        let minimaxMove = this.minimax(newTable, this.botPlayer, depth);
-        move.score = minimaxMove.score;
-        move.depth = minimaxMove.depth;
+        move.score = this.minimax(newTable, this.botPlayer, depth).score;
       }
 
       newTable[cell] = move.index;
@@ -143,18 +139,19 @@ class Krestik {
     // console.log(moves, currentPlayer);
     let bestMove = 0;
     if (currentPlayer === this.botPlayer) {
-      let depth = 1000;
+      let bestScore = -1000;
       moves.forEach((val, i) => {
-        if (val.score >= 0 && val.depth <= depth) {
-          depth = val.depth;
+        if (val.score > bestScore) {
+          bestScore = val.score;
           bestMove = i;
         }
       });
     } else {
       let depth = 1000;
+      let bestScore = 1000;
       moves.forEach((val, i) => {
-        if (val.score <= 0 && val.depth <= depth) {
-          depth = val.depth;
+        if (val.score < bestScore) {
+          bestScore = val.score;
           bestMove = i;
         }
       });
